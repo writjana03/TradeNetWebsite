@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\TradeNetPortal\\Views",
+    "\\TradeNetPortal\\Views\\Home",
+    "\\TradeNetPortal\\Views\\Shared",
+    "\\TradeNetPortal\\wwwroot",
+    "\\TradeNetPortal\\wwwroot\\css",
+    "\\TradeNetPortal\\wwwroot\\js",
+    "\\TradeNetPortal\\wwwroot\\lib",
+    "\\TradeNetPortal\\wwwroot\\lib\\bootstrap",
+    "\\TradeNetPortal\\wwwroot\\lib\\bootstrap\\dist"
+  ],
+  "SelectedNode": "\\TradeNetPortal.slnx",
+  "PreviewInSolutionExplorer": false
+}

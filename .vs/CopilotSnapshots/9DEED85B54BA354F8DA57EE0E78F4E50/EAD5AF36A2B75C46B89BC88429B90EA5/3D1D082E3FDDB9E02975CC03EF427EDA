@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | TradeNet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold" asp-controller="Home" asp-action="Index">
+                TradeNet
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" href="@Url.Action("Index", "Home")#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="@Url.Action("Index", "Home")#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="@Url.Action("Index", "Home")#services">Services</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-primary fw-600 rounded-pill px-4 me-2" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="btn btn-primary fw-600 rounded-pill px-4" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container text-center">
+            <div class="mb-4">
+                <img src="~/assets/logo.png" alt="Footer Logo" height="30" class="mb-3 opacity-75">
+                <h5 class="fw-bold">TradeNet</h5>
+                <p class="text-white-50 small">Empowering Commerce. Building Futures.</p>
+            </div>
+            <hr class="border-secondary">
+            <p class="small text-white-50">&copy; 2026 TradeNet Government. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        window.onscroll = function () {
+            var nav = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('navbar-scrolled');
+            } else {
+                nav.classList.remove('navbar-scrolled');
+            }
+        };
+    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script> 
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

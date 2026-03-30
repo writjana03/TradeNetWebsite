@@ -1,0 +1,216 @@
+﻿@model TradeNetPortal.ViewModels.LicenseListViewModel
+
+@{
+    ViewData["Title"] = "Trade Licenses";
+}
+
+<div class="content-wrapper">
+<div class="container mt-4">
+    <h2>Available Trade Licenses</h2>
+    <p class="text-muted">Browse and apply for trade licenses</p>
+    <hr />
+
+    <div class="row">
+        @foreach (var license in Model.AvailableLicenses)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">@license.Title</h5>
+                        <small>@license.Type License</small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@license.Description.Substring(0, Math.Min(100, license.Description.Length))...</p>
+                        <p><strong>Fee:</strong> $@license.Fee</p>
+                        <button class="btn btn-info btn-sm" onclick="viewLicenseDetails(@license.LicenseID)">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="openApplicationForm(@license.LicenseID, '@license.Type', '@license.Title', '@license.Description')">
+                            <i class="fas fa-file-alt"></i> Apply Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h2 class="mt-5">Active Programs & Subsidies</h2>
+    <p class="text-muted">Explore available trade programs and subsidies</p>
+    <hr />
+
+    <div class="row">
+        @foreach (var program in Model.ActivePrograms)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">@program.Title</h5>
+                        <small>@program.ProgramType</small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@program.Description.Substring(0, Math.Min(150, program.Description.Length))...</p>
+                        <p><strong>Budget:</strong> $@program.Budget.ToString("N0")</p>
+                        <p><strong>Duration:</strong> @program.StartDate.ToString("MMM yyyy") - @program.EndDate.ToString("MMM yyyy")</p>
+                        <button class="btn btn-info btn-sm" onclick="viewProgramDetails(@program.ProgramID)">
+                            <i class="fas fa-eye"></i> View Full Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- License Details Modal -->
+<div class="modal fade" id="licenseDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">License Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="licenseDetailsContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Program Details Modal -->
+<div class="modal fade" id="programDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Program Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="programDetailsContent">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- License Application Modal -->
+<div class="modal fade" id="licenseApplicationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Apply for License</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="licenseApplicationForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="applicationLicenseId" name="LicenseID" />
+                    <input type="hidden" id="applicationLicenseType" name="LicenseType" />
+                    <input type="hidden" id="applicationTitle" name="Title" />
+                    <input type="hidden" id="applicationDescription" name="Description" />
+
+                    <div class="mb-3">
+                        <label class="form-label">License Type</label>
+                        <input type="text" class="form-control" id="displayLicenseType" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">License Title</label>
+                        <input type="text" class="form-control" id="displayLicenseTitle" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Upload Required Documents</label>
+                        <input type="file" class="form-control" name="Documents" multiple required />
+                        <small class="text-muted">Upload all required documents (ID proof, business registration, etc.)</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-control" name="AdditionalNotes" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function viewLicenseDetails(licenseId) {
+            $('#licenseDetailsModal').modal('show');
+            $.get('/BusinessPortal/GetLicenseDetails?licenseId=' + licenseId, function(data) {
+                $('#licenseDetailsContent').html(`
+                    <h5>${data.title}</h5>
+                    <hr />
+                    <p><strong>Type:</strong> ${data.type}</p>
+                    <p><strong>Description:</strong> ${data.description}</p>
+                    <p><strong>Fee:</strong> $${data.fee}</p>
+                    <p><strong>Status:</strong> <span class="badge bg-success">${data.status}</span></p>
+                `);
+            });
+        }
+
+        function viewProgramDetails(programId) {
+            $('#programDetailsModal').modal('show');
+            $.get('/BusinessPortal/GetProgramDetails?programId=' + programId, function(data) {
+                $('#programDetailsContent').html(`
+                    <h5>${data.title}</h5>
+                    <hr />
+                    <p><strong>Type:</strong> ${data.programType}</p>
+                    <p><strong>Description:</strong> ${data.description}</p>
+                    <p><strong>Budget:</strong> $${data.budget.toLocaleString()}</p>
+                    <p><strong>Start Date:</strong> ${new Date(data.startDate).toLocaleDateString()}</p>
+                    <p><strong>End Date:</strong> ${new Date(data.endDate).toLocaleDateString()}</p>
+                    <p><strong>Eligibility Criteria:</strong> ${data.eligibilityCriteria}</p>
+                    <p><strong>Status:</strong> <span class="badge bg-success">${data.status}</span></p>
+                `);
+            });
+        }
+
+        function openApplicationForm(licenseId, type, title, description) {
+            $('#applicationLicenseId').val(licenseId);
+            $('#applicationLicenseType').val(type);
+            $('#applicationTitle').val(title);
+            $('#applicationDescription').val(description);
+            $('#displayLicenseType').val(type);
+            $('#displayLicenseTitle').val(title);
+            $('#licenseApplicationModal').modal('show');
+        }
+
+        $('#licenseApplicationForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            var formData = new FormData(this);
+            
+            $.ajax({
+                url: '/BusinessPortal/ApplyLicense',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $('#licenseApplicationModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    </script>
+}

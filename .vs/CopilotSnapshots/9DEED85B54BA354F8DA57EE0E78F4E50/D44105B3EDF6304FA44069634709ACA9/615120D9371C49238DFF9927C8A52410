@@ -1,0 +1,343 @@
+﻿:root {
+    --tn-blue: #003566;
+    --tn-dark: #001d3d;
+    --tn-light: #f8f9fa;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Main Headings - Serif Font */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+h1, h2 {
+    font-size: 50px;
+}
+
+/* Paragraphs - Sans Serif Font */
+p {
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- Navbar Logic --- */
+/* Initial state (Transparent) */
+.navbar {
+    padding: 1rem 0;
+    transition: all 0.4s ease-in-out;
+    z-index: 1030;
+    background-color: transparent !important;
+}
+
+/* Ensure brand and links are white on the dark hero image */
+.navbar:not(.navbar-scrolled) .nav-link,
+.navbar:not(.navbar-scrolled) .navbar-brand {
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Hamburger icon for mobile - white on transparent */
+.navbar:not(.navbar-scrolled) .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Fix for the Login button visibility */
+.navbar:not(.navbar-scrolled) .btn-outline-primary {
+    border-color: white !important;
+    color: white !important;
+    background-color: transparent !important;
+}
+
+.navbar:not(.navbar-scrolled) .btn-outline-primary:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: white !important;
+}
+
+.navbar:not(.navbar-scrolled) .btn-primary {
+    background-color: white !important;
+    color: var(--tn-blue) !important;
+    border-color: white !important;
+}
+
+/* Scrolled state (White background with dark text) */
+.navbar.navbar-scrolled {
+    background-color: #ffffff !important;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.navbar-scrolled .nav-link,
+.navbar.navbar-scrolled .navbar-brand {
+    color: var(--tn-blue) !important;
+    text-shadow: none;
+}
+
+/* Hamburger icon for mobile - dark on white */
+.navbar.navbar-scrolled .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 53, 102, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar.navbar-scrolled .btn-outline-primary {
+    border-color: var(--tn-blue) !important;
+    color: var(--tn-blue) !important;
+    background-color: transparent !important;
+}
+
+.navbar.navbar-scrolled .btn-outline-primary:hover {
+    background-color: rgba(0, 53, 102, 0.1) !important;
+}
+
+.navbar.navbar-scrolled .btn-primary {
+    background-color: var(--tn-blue) !important;
+    color: white !important;
+    border-color: var(--tn-blue) !important;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative;
+    padding: 215px 0 165px;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 53, 102, 0.85), rgba(0, 53, 102, 0.85)),
+        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    z-index: -1;
+    animation: subtleZoom 20s ease-in-out infinite alternate;
+}
+
+/* About Portal Cards */
+#about {
+    background-color: #fafbfc;
+    padding: 6rem 0 !important;
+}
+
+#about h2 {
+    color: var(--tn-blue);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-portal-card {
+    background: #ffffff;
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 16px;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #e8eaed;
+    position: relative;
+    margin-top: 100px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.about-portal-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 53, 102, 0.12);
+    border-color: var(--tn-blue);
+}
+
+/* The Circular Image Styling */
+.circle-img-wrapper {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--tn-light);
+}
+
+.circle-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: brightness(0.98);
+}
+
+.about-portal-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(1.02);
+}
+
+.about-portal-card h4 {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    color: var(--tn-blue);
+    font-weight: 700;
+}
+
+.about-portal-card p {
+    line-height: 1.7;
+    color: #5f6368;
+    font-size: 0.95rem;
+}
+
+
+/* --- Services Section --- */
+#services {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f4f8 100%);
+    padding: 6rem 0;
+}
+
+#services h2 {
+    color: var(--tn-blue);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-card {
+    min-height: 380px;
+    max-width: 360px;
+    margin: 0 auto;
+    border-radius: 20px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3rem 2.5rem !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent !important;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Circular Icon Box */
+.icon-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    transition: all 0.4s ease;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.icon-box i {
+    font-size: 2.5rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* Typography Spacing */
+.service-card h5 {
+    margin: 0 0 1rem 0;
+    transition: color 0.4s ease;
+    font-size: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.service-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    transition: color 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- COLOR THEMES --- */
+
+/* Blue Card Styles */
+.card-blue {
+    background: linear-gradient(135deg, var(--tn-blue) 0%, #004d7a 100%) !important;
+    color: white !important;
+    box-shadow: 0 8px 24px rgba(0, 53, 102, 0.2);
+}
+
+.card-blue .icon-box {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+
+.card-blue i {
+    color: #ffffff !important;
+}
+
+.card-blue p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* White Card Styles */
+.card-white {
+    background-color: #ffffff !important;
+    color: var(--tn-dark) !important;
+    border: 2px solid #e8eaed !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.card-white .icon-box {
+    background: linear-gradient(135deg, rgba(0, 53, 102, 0.08) 0%, rgba(0, 53, 102, 0.12) 100%);
+}
+
+.card-white i {
+    color: var(--tn-blue) !important;
+}
+
+.card-white p {
+    color: #5f6368 !important;
+}
+
+/* --- HOVER EFFECTS --- */
+#services .service-card {
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+#services .service-card:hover {
+    transform: translateY(-16px) !important;
+}
+
+#services .card-blue:hover {
+    box-shadow: 0 20px 48px rgba(0, 53, 102, 0.35) !important;
+}
+
+#services .card-white:hover {
+    box-shadow: 0 20px 48px rgba(0, 53, 102, 0.15) !important;
+    border-color: var(--tn-blue) !important;
+}
+
+#services .service-card:hover .icon-box i {
+    transform: rotate(12deg) scale(1.15);
+}
+
+#services .card-blue:hover .icon-box {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#services .card-white:hover .icon-box {
+    background: linear-gradient(135deg, var(--tn-blue) 0%, #004d7a 100%);
+}
+
+#services .card-white:hover .icon-box i {
+    color: #ffffff !important;
+}

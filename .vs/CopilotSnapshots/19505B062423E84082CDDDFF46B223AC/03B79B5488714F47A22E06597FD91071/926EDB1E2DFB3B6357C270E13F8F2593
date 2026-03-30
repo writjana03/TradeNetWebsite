@@ -1,0 +1,244 @@
+﻿@model TradeNetPortal.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Business Profile";
+}
+
+<div class="content-wrapper">
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <strong>@TempData["ErrorMessage"]</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong>@TempData["SuccessMessage"]</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Business Profile</h2>
+            <hr />
+
+            @if (Model.ComplianceStatus == "Non-Compliant")
+            {
+                <div class="alert alert-danger" role="alert">
+                    <strong>⚠️ Non-Compliant!</strong> @Model.ComplianceMessage
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success" role="alert">
+                    <strong>✓ Compliant</strong> Your business is compliant with all regulations.
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3 text-center">
+            <div class="card">
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.User.ProfilePicture))
+                    {
+                        <img src="@Model.User.ProfilePicture" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-secondary rounded-circle mb-3 mx-auto" style="width: 150px; height: 150px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user fa-5x text-white"></i>
+                        </div>
+                    }
+                    <h5>@Model.User.Name</h5>
+                    <p class="text-muted">@Model.User.Email</p>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadPhotoModal">
+                        <i class="fas fa-camera"></i> Upload Photo
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6>Personal Information</h6>
+                    <hr />
+                    <p><strong>Phone:</strong> @Model.User.Phone</p>
+                    <p><strong>Role:</strong> @Model.User.Role</p>
+                    <p><strong>Status:</strong> <span class="badge bg-success">@Model.User.Status</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Business Information</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Business.BusinessID" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Business Name</label>
+                                <input type="text" class="form-control" name="Name" value="@Model.Business?.Name" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Business Type</label>
+                                <select class="form-select" name="Type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Trader" selected="@(Model.Business?.Type == "Trader")">Trader</option>
+                                    <option value="Exporter" selected="@(Model.Business?.Type == "Exporter")">Exporter</option>
+                                    <option value="Importer" selected="@(Model.Business?.Type == "Importer")">Importer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" name="Address" rows="2" required>@Model.Business?.Address</textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Contact Info</label>
+                                <input type="text" class="form-control" name="ContactInfo" value="@Model.Business?.ContactInfo" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Registration Number</label>
+                                <input type="text" class="form-control" name="RegistrationNumber" value="@Model.Business?.RegistrationNumber" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Business Information
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Document Vault</h5>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal">
+                        <i class="fas fa-upload"></i> Upload Document
+                    </button>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Document Type</th>
+                                    <th>Upload Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Documents.Any())
+                                {
+                                    foreach (var doc in Model.Documents)
+                                    {
+                                        <tr>
+                                            <td>@doc.DocType</td>
+                                            <td>@doc.UploadedDate.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                @if (doc.VerificationStatus == "Verified")
+                                                {
+                                                    <span class="badge bg-success">@doc.VerificationStatus</span>
+                                                }
+                                                else if (doc.VerificationStatus == "Rejected")
+                                                {
+                                                    <span class="badge bg-danger">@doc.VerificationStatus</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning">@doc.VerificationStatus</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="@doc.FileURI" target="_blank" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-download"></i> View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">No documents uploaded yet.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Photo Modal -->
+<div class="modal fade" id="uploadPhotoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Profile Photo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Select Photo</label>
+                        <input type="file" class="form-control" name="ProfilePicture" accept="image/*" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Document Modal -->
+<div class="modal fade" id="uploadDocumentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Select Documents</label>
+                        <input type="file" class="form-control" name="Documents" multiple required />
+                        <small class="text-muted">You can upload multiple documents at once</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+}
+</div>

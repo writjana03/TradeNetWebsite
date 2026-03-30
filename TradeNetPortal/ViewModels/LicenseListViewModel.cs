@@ -1,0 +1,10 @@
+using TradeNetPortal.Models;
+
+namespace TradeNetPortal.ViewModels
+{
+    public class LicenseListViewModel
+    {
+        public List<TradeLicense> AvailableLicenses { get; set; } = new List<TradeLicense>();
+        public List<TradeProgram> ActivePrograms { get; set; } = new List<TradeProgram>();
+    }
+}

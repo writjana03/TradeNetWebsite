@@ -1,0 +1,365 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TradeNetPortal.Data;
+using TradeNetPortal.Models;
+using TradeNetPortal.ViewModels;
+
+namespace TradeNetPortal.Controllers
+{
+    public class BusinessPortalController : Controller
+    {
+        private readonly TradeNetDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+
+        public BusinessPortalController(TradeNetDbContext context, IWebHostEnvironment environment)
+        {
+            _context = context;
+            _environment = environment;
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            int userId = GetCurrentUserId();
+            var user = await _context.Users.FindAsync(userId);
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
+            var documents = business != null ? await _context.BusinessDocuments.Where(d => d.BusinessID == business.BusinessID).ToListAsync() : new List<BusinessDocument>();
+
+            var complianceStatus = business?.ComplianceStatus ?? "Compliant";
+            var complianceMessage = complianceStatus == "Non-Compliant" ? "Your business is non-compliant. Please update required documents." : null;
+
+            var viewModel = new ProfileViewModel
+            {
+                User = user ?? new User(),
+                Business = business,
+                Documents = documents,
+                ComplianceStatus = complianceStatus,
+                ComplianceMessage = complianceMessage
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(BusinessUpdateViewModel model)
+        {
+            int userId = GetCurrentUserId();
+
+            if (model.ProfilePicture != null)
+            {
+                var fileName = await SaveFile(model.ProfilePicture, "profiles");
+                var user = await _context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    user.ProfilePicture = fileName;
+                }
+            }
+
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
+            if (business == null && model.BusinessID == 0)
+            {
+                business = new Business
+                {
+                    UserID = userId,
+                    Name = model.Name,
+                    Type = model.Type,
+                    Address = model.Address,
+                    ContactInfo = model.ContactInfo,
+                    RegistrationNumber = model.RegistrationNumber,
+                    RegistrationDate = DateTime.Now,
+                    Status = "Pending"
+                };
+                _context.Businesses.Add(business);
+            }
+            else if (business != null)
+            {
+                business.Name = model.Name;
+                business.Type = model.Type;
+                business.Address = model.Address;
+                business.ContactInfo = model.ContactInfo;
+                business.RegistrationNumber = model.RegistrationNumber;
+            }
+
+            await _context.SaveChangesAsync();
+
+            if (model.Documents != null && business != null)
+            {
+                foreach (var doc in model.Documents)
+                {
+                    var fileName = await SaveFile(doc, "documents");
+                    var document = new BusinessDocument
+                    {
+                        BusinessID = business.BusinessID,
+                        DocType = "IDProof",
+                        FileURI = fileName,
+                        UploadedDate = DateTime.Now,
+                        VerificationStatus = "Pending"
+                    };
+                    _context.BusinessDocuments.Add(document);
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            await LogAudit(userId, "Update Profile", "Business Profile");
+
+            return RedirectToAction(nameof(Profile));
+        }
+
+        public async Task<IActionResult> LicenseList()
+        {
+            var availableLicenses = await _context.TradeLicenses
+                .Where(l => l.Status == "Available")
+                .ToListAsync();
+
+            var activePrograms = await _context.TradePrograms
+                .Where(p => p.Status == "Active")
+                .ToListAsync();
+
+            var viewModel = new LicenseListViewModel
+            {
+                AvailableLicenses = availableLicenses,
+                ActivePrograms = activePrograms
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApplyLicense(LicenseApplicationViewModel model)
+        {
+            int userId = GetCurrentUserId();
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
+
+            if (business == null)
+            {
+                return Json(new { success = false, message = "Please complete your business profile first." });
+            }
+
+            var existingLicense = await _context.TradeLicenses
+                .FirstOrDefaultAsync(l => l.BusinessID == business.BusinessID && l.LicenseID == model.LicenseID);
+
+            if (existingLicense != null && existingLicense.ApplicationStatus == "Approved")
+            {
+                return Json(new { success = false, message = "You already have this license." });
+            }
+
+            var license = new TradeLicense
+            {
+                BusinessID = business.BusinessID,
+                Type = model.LicenseType,
+                Title = model.Title,
+                Description = model.Description,
+                Status = "Pending",
+                ApplicationStatus = "PendingDocumentVerification",
+                ApplicationDate = DateTime.Now
+            };
+
+            _context.TradeLicenses.Add(license);
+            await _context.SaveChangesAsync();
+
+            if (model.Documents != null)
+            {
+                foreach (var doc in model.Documents)
+                {
+                    var fileName = await SaveFile(doc, "licenses");
+                    var licenseDoc = new LicenseDocument
+                    {
+                        LicenseID = license.LicenseID,
+                        DocType = "Application",
+                        FileURI = fileName,
+                        UploadedDate = DateTime.Now,
+                        VerificationStatus = "Pending"
+                    };
+                    _context.LicenseDocuments.Add(licenseDoc);
+                }
+                await _context.SaveChangesAsync();
+            }
+
+            var notification = new Notification
+            {
+                UserID = userId,
+                EntityID = license.LicenseID,
+                Message = $"Your application for {license.Title} has been submitted successfully.",
+                Category = "License",
+                CreatedDate = DateTime.Now,
+                Status = "Unread"
+            };
+            _context.Notifications.Add(notification);
+            await _context.SaveChangesAsync();
+
+            await LogAudit(userId, "Apply License", $"License: {license.Title}");
+
+            return Json(new { success = true, message = "License application submitted successfully!" });
+        }
+
+        public async Task<IActionResult> Dashboard()
+        {
+            int userId = GetCurrentUserId();
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
+
+            if (business == null)
+            {
+                return View(new DashboardViewModel());
+            }
+
+            var appliedLicenses = await _context.TradeLicenses
+                .Where(l => l.BusinessID == business.BusinessID && l.Status != "Available")
+                .ToListAsync();
+
+            var transactions = await _context.Transactions
+                .Where(t => t.BusinessID == business.BusinessID)
+                .OrderByDescending(t => t.Date)
+                .ToListAsync();
+
+            var availableSubsidies = await _context.TradePrograms
+                .Where(p => p.Status == "Active")
+                .ToListAsync();
+
+            var viewModel = new DashboardViewModel
+            {
+                AppliedLicenses = appliedLicenses,
+                Transactions = transactions,
+                AvailableSubsidies = availableSubsidies,
+                PendingLicenses = appliedLicenses.Count(l => l.ApplicationStatus?.Contains("Pending") == true),
+                ApprovedLicenses = appliedLicenses.Count(l => l.ApplicationStatus == "Approved"),
+                PendingTransactions = transactions.Count(t => t.Status == "Pending"),
+                TotalTransactionAmount = transactions.Where(t => t.Status == "Completed").Sum(t => t.Amount)
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTransaction(TransactionCreateViewModel model)
+        {
+            int userId = GetCurrentUserId();
+            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
+
+            if (business == null)
+            {
+                return Json(new { success = false, message = "Business profile not found." });
+            }
+
+            var transaction = new Transaction
+            {
+                BusinessID = business.BusinessID,
+                Type = model.Type,
+                Amount = model.Amount,
+                Date = DateTime.Now,
+                Status = "Pending",
+                Description = model.Description,
+                InvoiceNumber = model.InvoiceNumber,
+                Counterparty = model.Counterparty
+            };
+
+            _context.Transactions.Add(transaction);
+            await _context.SaveChangesAsync();
+
+            var notification = new Notification
+            {
+                UserID = userId,
+                EntityID = transaction.TransactionID,
+                Message = $"New {model.Type} transaction of ${model.Amount} has been created.",
+                Category = "Transaction",
+                CreatedDate = DateTime.Now,
+                Status = "Unread"
+            };
+            _context.Notifications.Add(notification);
+            await _context.SaveChangesAsync();
+
+            await LogAudit(userId, "Create Transaction", $"Amount: {model.Amount}");
+
+            return Json(new { success = true, message = "Transaction created successfully!" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetNotifications()
+        {
+            int userId = GetCurrentUserId();
+            var notifications = await _context.Notifications
+                .Where(n => n.UserID == userId)
+                .OrderByDescending(n => n.CreatedDate)
+                .Take(10)
+                .ToListAsync();
+
+            return Json(notifications);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MarkNotificationRead(int notificationId)
+        {
+            var notification = await _context.Notifications.FindAsync(notificationId);
+            if (notification != null)
+            {
+                notification.Status = "Read";
+                await _context.SaveChangesAsync();
+            }
+            return Json(new { success = true });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLicenseDetails(int licenseId)
+        {
+            var license = await _context.TradeLicenses.FindAsync(licenseId);
+            return Json(license);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetTransactionDetails(int transactionId)
+        {
+            var transaction = await _context.Transactions.FindAsync(transactionId);
+            return Json(transaction);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProgramDetails(int programId)
+        {
+            var program = await _context.TradePrograms.FindAsync(programId);
+            return Json(program);
+        }
+
+        private int GetCurrentUserId()
+        {
+            return HttpContext.Session.GetInt32("UserId") ?? 0;
+        }
+
+        private string? GetCurrentUserName()
+        {
+            return HttpContext.Session.GetString("UserName");
+        }
+
+        private bool IsUserLoggedIn()
+        {
+            return HttpContext.Session.GetInt32("UserId").HasValue;
+        }
+
+        private async Task<string> SaveFile(IFormFile file, string folder)
+        {
+            var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads", folder);
+            Directory.CreateDirectory(uploadsFolder);
+
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+
+            return $"/uploads/{folder}/{uniqueFileName}";
+        }
+
+        private async Task LogAudit(int userId, string action, string resource)
+        {
+            var auditLog = new AuditLog
+            {
+                UserID = userId,
+                Action = action,
+                Resource = resource,
+                Timestamp = DateTime.Now,
+                IPAddress = HttpContext.Connection.RemoteIpAddress?.ToString()
+            };
+            _context.AuditLogs.Add(auditLog);
+            await _context.SaveChangesAsync();
+        }
+    }
+}

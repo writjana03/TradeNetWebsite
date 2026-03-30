@@ -1,0 +1,635 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\code\\TradeNetPortal\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\services\\inmemoryuserstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\services\\inmemoryuserstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\auditlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\data\\tradenetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\data\\tradenetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\tradenetportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\tradenetportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\businessportal\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\businessportal\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\2481583\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1009489853\\_Layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\marketrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\marketrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\compliancerecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\compliancerecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\businessportal\\licenselist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\businessportal\\licenselist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\businessportal\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\businessportal\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\transactioncreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\transactioncreateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\licenseapplicationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\licenseapplicationviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\licenselistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\licenselistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\viewmodels\\businessupdateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\viewmodels\\businessupdateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\licensedocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\licensedocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\transaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\tradelicense.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\tradelicense.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\businessdocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\businessdocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\models\\tradeprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\models\\tradeprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\shared\\_loginmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\shared\\_loginmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\controllers\\businessportalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\controllers\\businessportalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\database_setup.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\database_setup.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenetportal\\tradenetportal\\database_integration_complete.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\database_integration_complete.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAALIAAAAAAAAAAAAAANsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-27T08:35:29.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuditLog.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\AuditLog.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\AuditLog.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\AuditLog.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\AuditLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:32.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InMemoryUserStore.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Services\\InMemoryUserStore.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Services\\InMemoryUserStore.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Services\\InMemoryUserStore.cs",
+              "RelativeToolTip": "TradeNetPortal\\Services\\InMemoryUserStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T17:55:37.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Program.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Program.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Program.cs",
+              "RelativeToolTip": "TradeNetPortal\\Program.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAmwDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T09:21:18.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TradeNetDbContext.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Data\\TradeNetDbContext.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Data\\TradeNetDbContext.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Data\\TradeNetDbContext.cs",
+              "RelativeToolTip": "TradeNetPortal\\Data\\TradeNetDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T19:11:18.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "TradeNetPortal\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-27T08:35:30.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\wwwroot\\css\\style.css",
+              "RelativeDocumentMoniker": "TradeNetPortal\\wwwroot\\css\\style.css",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\wwwroot\\css\\style.css",
+              "RelativeToolTip": "TradeNetPortal\\wwwroot\\css\\style.css",
+              "ViewState": "AgIAAPkAAAAAAAAAAAAAADEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-26T09:22:40.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "site.js",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "TradeNetPortal\\wwwroot\\js\\site.js",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "TradeNetPortal\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-26T09:23:56.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TradeNetPortal.csproj",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
+              "RelativeDocumentMoniker": "TradeNetPortal\\TradeNetPortal.csproj",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
+              "RelativeToolTip": "TradeNetPortal\\TradeNetPortal.csproj",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-29T05:42:10.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "DATABASE_SETUP.md",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\DATABASE_SETUP.md",
+              "RelativeDocumentMoniker": "TradeNetPortal\\DATABASE_SETUP.md",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\DATABASE_SETUP.md",
+              "RelativeToolTip": "TradeNetPortal\\DATABASE_SETUP.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-03-29T19:17:52.288Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "DATABASE_INTEGRATION_COMPLETE.md",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\DATABASE_INTEGRATION_COMPLETE.md",
+              "RelativeDocumentMoniker": "TradeNetPortal\\DATABASE_INTEGRATION_COMPLETE.md",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\DATABASE_INTEGRATION_COMPLETE.md",
+              "RelativeToolTip": "TradeNetPortal\\DATABASE_INTEGRATION_COMPLETE.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-03-29T19:30:50.35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "BusinessPortalController.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Controllers\\BusinessPortalController.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Controllers\\BusinessPortalController.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Controllers\\BusinessPortalController.cs",
+              "RelativeToolTip": "TradeNetPortal\\Controllers\\BusinessPortalController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T19:12:58.537Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\appsettings.json",
+              "RelativeDocumentMoniker": "TradeNetPortal\\appsettings.json",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\appsettings.json",
+              "RelativeToolTip": "TradeNetPortal\\appsettings.json",
+              "ViewState": "AgIAAAIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-29T19:13:14.647Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-26T07:20:50.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ComplianceRecord.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\ComplianceRecord.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\ComplianceRecord.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\ComplianceRecord.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\ComplianceRecord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:31.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\BusinessPortal\\Dashboard.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\Dashboard.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\BusinessPortal\\Dashboard.cshtml",
+              "ViewState": "AgIAAIIBAAAAAAAAAAD4v4oBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-29T05:32:45.749Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MarketRecord.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\MarketRecord.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\MarketRecord.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\MarketRecord.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\MarketRecord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:32.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LicenseList.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\LicenseList.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\BusinessPortal\\LicenseList.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\LicenseList.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\BusinessPortal\\LicenseList.cshtml",
+              "ViewState": "AgIAANcAAAAAAAAAAIBJwNkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-29T05:31:56.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\Profile.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\BusinessPortal\\Profile.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\BusinessPortal\\Profile.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\BusinessPortal\\Profile.cshtml",
+              "ViewState": "AgIAAPIAAAAAAAAAAIBJwPQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-29T05:31:28.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "TransactionCreateViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\TransactionCreateViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\TransactionCreateViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\TransactionCreateViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\TransactionCreateViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "LicenseApplicationViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\LicenseApplicationViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\LicenseApplicationViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\LicenseApplicationViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\LicenseApplicationViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DashboardViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\DashboardViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\DashboardViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\DashboardViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\DashboardViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ProfileViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\ProfileViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\ProfileViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\ProfileViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\ProfileViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "LicenseListViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\LicenseListViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\LicenseListViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\LicenseListViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\LicenseListViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "BusinessUpdateViewModel.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\BusinessUpdateViewModel.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\ViewModels\\BusinessUpdateViewModel.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\ViewModels\\BusinessUpdateViewModel.cs",
+              "RelativeToolTip": "TradeNetPortal\\ViewModels\\BusinessUpdateViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:50.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "LicenseDocument.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\LicenseDocument.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\LicenseDocument.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\LicenseDocument.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\LicenseDocument.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:29:32.349Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\Notification.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Notification.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\Notification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.072Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Business.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Business.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\Business.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Business.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\Business.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.157Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Transaction.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Transaction.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\Transaction.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\Transaction.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\Transaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:21.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\User.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\User.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\User.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "TradeLicense.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\TradeLicense.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\TradeLicense.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\TradeLicense.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\TradeLicense.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "BusinessDocument.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\BusinessDocument.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\BusinessDocument.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\BusinessDocument.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\BusinessDocument.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.503Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "TradeProgram.cs",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\TradeProgram.cs",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Models\\TradeProgram.cs",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Models\\TradeProgram.cs",
+              "RelativeToolTip": "TradeNetPortal\\Models\\TradeProgram.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-29T05:06:23.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAIkAAAAAAAAAAIBJwK4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-27T08:35:29.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "_LoginModal.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_LoginModal.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Shared\\_LoginModal.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_LoginModal.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Shared\\_LoginModal.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-27T08:55:47.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Shared\\_Layout.cshtml.css",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-26T09:03:22.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\2481583\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1009489853\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "..\\..\\Users\\2481583\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1009489853\\_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\2481583\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1009489853\\_Layout.cshtml.css",
+              "RelativeToolTip": "..\\..\\Users\\2481583\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1009489853\\_Layout.cshtml.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-26T09:41:46.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "TradeNetPortal\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\code\\TradeNetPortal\\TradeNetPortal\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "TradeNetPortal\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAHIAAAAAAAAAAIBJwEQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-26T09:03:20.628Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
