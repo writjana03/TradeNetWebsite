@@ -3216,11 +3216,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
+      "projectUniqueName": "C:\\code\\TradeNetPortal1\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
       "projectName": "TradeNetPortal",
-      "projectPath": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
+      "projectPath": "C:\\code\\TradeNetPortal1\\TradeNetPortal\\TradeNetPortal\\TradeNetPortal.csproj",
       "packagesPath": "C:\\Users\\2481583\\.nuget\\packages\\",
-      "outputPath": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\obj\\",
+      "outputPath": "C:\\code\\TradeNetPortal1\\TradeNetPortal\\TradeNetPortal\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3241,8 +3241,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetAPI\\TradeNetAPI.csproj": {
-              "projectPath": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetAPI\\TradeNetAPI.csproj"
+            "C:\\code\\TradeNetPortal1\\TradeNetPortal\\TradeNetAPI\\TradeNetAPI.csproj": {
+              "projectPath": "C:\\code\\TradeNetPortal1\\TradeNetPortal\\TradeNetAPI\\TradeNetAPI.csproj"
             }
           }
         }

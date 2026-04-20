@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TradeNetPortal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3c9eedfd248bb8a2f0a15bbade231a920cee6ab")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12994ecd5286f1ffaad68957d464a5bc6a450c28")]
 [assembly: System.Reflection.AssemblyProductAttribute("TradeNetPortal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TradeNetPortal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

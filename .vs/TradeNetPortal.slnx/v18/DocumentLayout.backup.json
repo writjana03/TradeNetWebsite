@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenet_backup\\tradenetportal\\tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenet_backup\\tradenetportal\\tradenetportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0AAB6090-DBB3-473D-B423-7E3D306884D2}|TradeNetAPI\\TradeNetAPI.csproj|c:\\code\\tradenet_backup\\tradenetportal\\tradenetapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0AAB6090-DBB3-473D-B423-7E3D306884D2}|TradeNetAPI\\TradeNetAPI.csproj|solutionrelative:tradenetapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|c:\\code\\tradenet_backup\\tradenetportal\\tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31C9B33A-6903-6A0C-C260-CC87054FEBEE}|TradeNetPortal\\TradeNetPortal.csproj|solutionrelative:tradenetportal\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0AAB6090-DBB3-473D-B423-7E3D306884D2}|TradeNetAPI\\TradeNetAPI.csproj|c:\\code\\tradenet_backup\\tradenetportal\\tradenetapi\\data\\tradenetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -265,17 +265,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Program.cs",
               "RelativeDocumentMoniker": "TradeNetPortal\\Program.cs",
-              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Program.cs*",
-              "RelativeToolTip": "TradeNetPortal\\Program.cs*",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Program.cs",
+              "RelativeToolTip": "TradeNetPortal\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-16T09:00:50.931Z",
               "EditorCaption": ""
@@ -294,26 +294,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "TradeNetPortal\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Controllers\\AccountController.cs*",
-              "RelativeToolTip": "TradeNetPortal\\Controllers\\AccountController.cs*",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAowDIAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetPortal\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "TradeNetPortal\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-15T07:05:53.586Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetAPI\\Program.cs",
               "RelativeDocumentMoniker": "TradeNetAPI\\Program.cs",
-              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetAPI\\Program.cs*",
-              "RelativeToolTip": "TradeNetAPI\\Program.cs*",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAABYAAAAYAAAAAAAAAA==",
+              "ToolTip": "C:\\code\\TradeNet_Backup\\TradeNetPortal\\TradeNetAPI\\Program.cs",
+              "RelativeToolTip": "TradeNetAPI\\Program.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAABYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-15T05:20:50.993Z",
               "EditorCaption": ""
@@ -592,8 +592,7 @@
               "RelativeToolTip": "TradeNetPortal\\TradeNetPortal.csproj",
               "ViewState": "AgIAABMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-04-15T05:33:21.247Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-15T05:33:21.247Z"
             },
             {
               "$type": "Document",
