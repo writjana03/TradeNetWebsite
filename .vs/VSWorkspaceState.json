@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\TradeNetPortal\\Views",
-    "\\TradeNetPortal\\Views\\Home",
-    "\\TradeNetPortal\\Views\\Shared",
+    "\\TradeNetPortal",
+    "\\TradeNetPortal\\Services",
+    "\\TradeNetPortal\\ViewModels",
     "\\TradeNetPortal\\wwwroot",
     "\\TradeNetPortal\\wwwroot\\css",
     "\\TradeNetPortal\\wwwroot\\js",

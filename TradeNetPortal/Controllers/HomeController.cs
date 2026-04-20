@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using TradeNetPortal.Models;
+using TradeNetAPI.Models;
 
 namespace TradeNetPortal.Controllers
 {

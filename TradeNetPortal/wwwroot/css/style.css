@@ -13,7 +13,8 @@ body {
 /* Content wrapper for pages with solid navbar */
 .content-wrapper {
     padding-top: 100px;
-    min-height: 100vh;
+    padding-bottom: 60px; /* Add bottom padding */
+    min-height: calc(100vh - 200px); /* Ensure minimum height minus navbar and footer */
     background-color: #f8f9fa;
 }
 
@@ -109,13 +110,15 @@ p {
 /* About Portal Cards */
 .about-portal-card {
     background: #fff;
-    padding: 0 2rem 2rem 0;
+    padding: 100px 1.5rem 1.5rem 1.5rem; /* Reduced padding */
     border-radius: 12px;
     height: 100%;
+    min-height: 280px; /* Reduced height for premium look */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #f0f0f0;
     position: relative;
-    margin-top: 120px;
+    margin-top: 90px; /* Adjusted for smaller circle */
+    text-align: center;
 }
 
 .about-portal-card:hover {
@@ -123,18 +126,19 @@ p {
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
 }
 
-/* The Circular Image Styling */
+/* The Circular Image Styling - sits on the top edge of card */
 .circle-img-wrapper {
-    width: 220px;
-    height: 220px;
+    width: 180px; /* Reduced from 220px */
+    height: 180px; /* Reduced from 220px */
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border: 4px solid #fff; /* Slightly thinner border */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     position: absolute;
-    top: 0;
+    top: -90px; /* Half of 180px to sit on edge */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%); /* Center horizontally only */
+    z-index: 2;
 }
 
 .circle-img-wrapper img {
@@ -146,6 +150,20 @@ p {
 
 .about-portal-card:hover img {
     transform: scale(1.1);
+}
+
+/* Text content below circle */
+.about-portal-card h4 {
+    margin-top: 10px;
+    margin-bottom: 12px;
+    font-size: 1.15rem; /* Slightly smaller */
+    font-weight: 700;
+}
+
+.about-portal-card p {
+    margin-bottom: 0;
+    font-size: 0.9rem; /* Slightly smaller text */
+    line-height: 1.5;
 }
 
 /* Icon and Typography */
@@ -212,24 +230,36 @@ p {
 /* --- Services Section --- */
 #services {
     background-color: #f0f4f8;
-    /* Light bluish background */
+    padding: 60px 0; /* Add section padding */
+}
+
+#about {
+    padding: 60px 0; /* Add section padding */
 }
 
 #about h2 {
     color: var(--tn-blue);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+#about p.text-muted {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
 }
 
 .service-card {
-    min-height: 400px;
+    min-height: 320px; /* Reduced from 400px */
     max-width: 340px;
     margin: 0 auto;
     border-radius: 18px !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Start from top to control spacing */
     align-items: center;
-    padding: 3rem 2rem !important;
+    padding: 2rem 1.5rem !important; /* Reduced padding */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: none;
     text-align: center;
@@ -237,43 +267,38 @@ p {
 
 /* Circular Icon Box - FIXING CENTERING */
 .icon-box {
-    width: 90px;
-    height: 90px;
+    width: 75px; /* Reduced from 90px */
+    height: 75px; /* Reduced from 90px */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
-    /* Gap between icon and Title */
+    margin-bottom: 1.5rem; /* Reduced spacing */
     transition: all 0.4s ease;
     flex-shrink: 0;
-    /* Prevents circle from squishing */
 }
 
 .icon-box i {
-    font-size: 2.2rem !important;
-    /* Specific size to center well */
+    font-size: 1.8rem !important; /* Reduced from 2.2rem */
     margin: 0 !important;
     padding: 0 !important;
     line-height: 1 !important;
-    /* Removes extra vertical space */
     display: block;
 }
 
 /* Typography Spacing */
 .service-card h5 {
-    margin: 1.5rem 0 1rem 0;
+    margin: 1rem 0 0.8rem 0; /* Reduced margins */
     transition: color 0.4s ease;
-    font-size: 1.4rem;
-    margin-bottom: 1.2rem;
-    /* Gap between Title and Description */
+    font-size: 1.25rem; /* Slightly smaller */
     font-weight: 700;
 }
 
 .service-card p {
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Slightly smaller text */
     line-height: 1.6;
     transition: color 0.4s ease;
+    margin-bottom: 0;
 }
 
 /* --- COLOR THEMES --- */
@@ -403,3 +428,34 @@ p {
     from { transform: scale(1); }
     to { transform: scale(1.1); }
 }*/
+
+/* --- Footer Styles --- */
+footer {
+    position: relative; /* Not fixed */
+    margin-top: 60px; /* Gap between content and footer */
+    width: 100%;
+}
+
+/* Extra margin for business portal pages */
+.content-wrapper + footer,
+main:has(.content-wrapper) ~ footer {
+    margin-top: 80px;
+}
+
+/* Ensure footer stays at bottom for short pages */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}

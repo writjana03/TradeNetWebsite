@@ -1,24 +1,20 @@
-using TradeNetPortal.Services;
-using TradeNetPortal.Data;
-using Microsoft.EntityFrameworkCore;
+using TradeNetAPI.Services;
+using TradeNetAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container - UI ONLY
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
-// Add DbContext with SQL Server
-
-builder.Services.AddDbContext<TradeNetDbContext>(options =>
+// Register HttpClient for API calls (pointing to TradeNetAPI)
+builder.Services.AddHttpClient("TradeNetAPI", client =>
 {
-    // Option 1: Use InMemory Database (for development/testing)
-    options.UseInMemoryDatabase("TradeNetDB");
-
-    // Option 2: Use SQL Server (uncomment and configure connection string in appsettings.json)
-    // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    client.BaseAddress = new Uri("https://localhost:7265");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
-// Keep the in-memory user store for now, but we'll update controllers to use DbContext
+// Add in-memory user store for UI authentication
 builder.Services.AddSingleton<InMemoryUserStore>();
 
 // Add Session support
@@ -32,18 +28,10 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Seed initial data
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<TradeNetDbContext>();
-    context.Database.EnsureCreated();
-}
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -54,9 +42,9 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 
 app.Run();

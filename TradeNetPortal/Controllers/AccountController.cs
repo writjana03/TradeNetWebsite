@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TradeNetPortal.Data;
-using TradeNetPortal.Models;
+using System.Text;
+using System.Text.Json;
+using TradeNetAPI.Models;
 
 namespace TradeNetPortal.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly TradeNetDbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public AccountController(TradeNetDbContext context)
+        public AccountController(IHttpClientFactory httpClientFactory)
         {
-            _context = context;
+            _httpClient = httpClientFactory.CreateClient("TradeNetAPI");
         }
 
         public IActionResult Login()
@@ -28,27 +28,45 @@ namespace TradeNetPortal.Controllers
                 return View();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user == null)
+            try
             {
-                TempData["ErrorMessage"] = "User not registered. Please register first.";
+                // Call API to get all users and find the one matching email
+                var usersResponse = await _httpClient.GetAsync("/api/user");
+                if (!usersResponse.IsSuccessStatusCode)
+                {
+                    TempData["ErrorMessage"] = "Unable to connect to authentication service.";
+                    return View();
+                }
+
+                var usersContent = await usersResponse.Content.ReadAsStringAsync();
+                var users = JsonSerializer.Deserialize<List<User>>(usersContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+
+                var user = users.FirstOrDefault(u => u.Email == email);
+
+                if (user == null)
+                {
+                    TempData["ErrorMessage"] = "User not registered. Please register first.";
+                    return View();
+                }
+
+                // TODO: Implement proper password validation
+                // For now, we're assuming email match is sufficient (development only)
+
+                // Set session
+                HttpContext.Session.SetInt32("UserId", user.UserID);
+                HttpContext.Session.SetString("UserName", user.Name);
+                HttpContext.Session.SetString("UserEmail", user.Email);
+
+                TempData["SuccessMessage"] = $"Welcome back, {user.Name}!";
+
+                // Redirect to Business Portal
+                return RedirectToAction("Profile", "BusinessPortal");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error during login: " + ex.Message;
                 return View();
             }
-
-            // In production, you should hash and compare passwords
-            // For demo purposes, we'll use a simple check
-            // TODO: Implement proper password hashing
-
-            // Set session
-            HttpContext.Session.SetInt32("UserId", user.UserID);
-            HttpContext.Session.SetString("UserName", user.Name);
-            HttpContext.Session.SetString("UserEmail", user.Email);
-
-            TempData["SuccessMessage"] = $"Welcome back, {user.Name}!";
-
-            // Redirect to Business Portal
-            return RedirectToAction("Profile", "BusinessPortal");
         }
 
         public IActionResult Register()
@@ -71,56 +89,91 @@ namespace TradeNetPortal.Controllers
                 return View();
             }
 
-            // Check if user already exists
-            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (existingUser != null)
+            try
             {
-                TempData["ErrorMessage"] = "User with this email already exists.";
-                return View();
-            }
-
-            // Create new user
-            var newUser = new User
-            {
-                Name = fullName,
-                Email = email,
-                Phone = "",
-                Role = "Business",
-                Status = "Active"
-                // TODO: Hash password and store
-            };
-
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
-
-            // Create business profile if business name provided
-            if (!string.IsNullOrEmpty(businessName))
-            {
-                var business = new Business
+                // Call API to get all users and check if email already exists
+                var usersResponse = await _httpClient.GetAsync("/api/user");
+                if (!usersResponse.IsSuccessStatusCode)
                 {
-                    UserID = newUser.UserID,
-                    Name = businessName,
-                    Type = "Trader",
-                    Address = "",
-                    ContactInfo = email,
-                    Status = "Pending",
-                    RegistrationDate = DateTime.Now,
-                    ComplianceStatus = "Compliant"
+                    TempData["ErrorMessage"] = "Unable to connect to registration service.";
+                    return View();
+                }
+
+                var usersContent = await usersResponse.Content.ReadAsStringAsync();
+                var users = JsonSerializer.Deserialize<List<User>>(usersContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+
+                var existingUser = users.FirstOrDefault(u => u.Email == email);
+                if (existingUser != null)
+                {
+                    TempData["ErrorMessage"] = "User with this email already exists.";
+                    return View();
+                }
+
+                // Create new user
+                var newUser = new User
+                {
+                    Name = fullName,
+                    Email = email,
+                    Phone = "",
+                    Role = "Business",
+                    Status = "Active"
                 };
 
-                _context.Businesses.Add(business);
-                await _context.SaveChangesAsync();
+                // Post user to API
+                var userJson = JsonSerializer.Serialize(newUser);
+                var userContent = new StringContent(userJson, Encoding.UTF8, "application/json");
+                var createUserResponse = await _httpClient.PostAsync("/api/user", userContent);
+
+                if (!createUserResponse.IsSuccessStatusCode)
+                {
+                    TempData["ErrorMessage"] = "Failed to create user account.";
+                    return View();
+                }
+
+                var userResponseContent = await createUserResponse.Content.ReadAsStringAsync();
+                var createdUser = JsonSerializer.Deserialize<User>(userResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (createdUser == null)
+                {
+                    TempData["ErrorMessage"] = "Failed to create user account.";
+                    return View();
+                }
+
+                // Create business profile if business name provided
+                if (!string.IsNullOrEmpty(businessName))
+                {
+                    var business = new Business
+                    {
+                        UserID = createdUser.UserID,
+                        Name = businessName,
+                        Type = "Trader",
+                        Address = "",
+                        ContactInfo = email,
+                        Status = "Pending",
+                        RegistrationDate = DateTime.Now,
+                        ComplianceStatus = "Compliant"
+                    };
+
+                    var businessJson = JsonSerializer.Serialize(business);
+                    var businessContent = new StringContent(businessJson, Encoding.UTF8, "application/json");
+                    await _httpClient.PostAsync("/api/business", businessContent);
+                }
+
+                // Auto-login after registration
+                HttpContext.Session.SetInt32("UserId", createdUser.UserID);
+                HttpContext.Session.SetString("UserName", createdUser.Name);
+                HttpContext.Session.SetString("UserEmail", createdUser.Email);
+
+                TempData["SuccessMessage"] = $"Registration successful! Welcome, {createdUser.Name}!";
+
+                // Redirecting to Business Portal Profile page
+                return RedirectToAction("Profile", "BusinessPortal");
             }
-
-            // Auto-login after registration
-            HttpContext.Session.SetInt32("UserId", newUser.UserID);
-            HttpContext.Session.SetString("UserName", newUser.Name);
-            HttpContext.Session.SetString("UserEmail", newUser.Email);
-
-            TempData["SuccessMessage"] = $"Registration successful! Welcome, {newUser.Name}!";
-
-            // Redirect to Business Portal Profile page
-            return RedirectToAction("Profile", "BusinessPortal");
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error during registration: " + ex.Message;
+                return View();
+            }
         }
 
         public IActionResult Logout()

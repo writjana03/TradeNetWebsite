@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TradeNetPortal.Data;
-using TradeNetPortal.ViewModels;
-using TradeNetPortal.Models;
+using System.Text;
+using System.Text.Json;
+using TradeNetAPI.Models;
+using TradeNetAPI.Models.ViewModels;
 
 namespace TradeNetPortal.Controllers
 {
     public class BusinessPortalController : Controller
     {
-        private readonly TradeNetDbContext _context;
+        private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _environment;
 
-        public BusinessPortalController(TradeNetDbContext context, IWebHostEnvironment environment)
+        public BusinessPortalController(IHttpClientFactory httpClientFactory, IWebHostEnvironment environment)
         {
-            _context = context;
+            _httpClient = httpClientFactory.CreateClient("TradeNetAPI");
             _environment = environment;
         }
 
@@ -26,27 +26,59 @@ namespace TradeNetPortal.Controllers
             }
 
             int userId = GetCurrentUserId();
-            var user = await _context.Users.FindAsync(userId);
-            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
-            var documents = business != null 
-                ? await _context.BusinessDocuments.Where(d => d.BusinessID == business.BusinessID).ToListAsync() 
-                : new List<BusinessDocument>();
-
-            var complianceStatus = business?.ComplianceStatus ?? "Compliant";
-            var complianceMessage = complianceStatus == "Non-Compliant" 
-                ? "Your business is non-compliant. Please update required documents." 
-                : null;
-
-            var viewModel = new ProfileViewModel
+            try
             {
-                User = user ?? new User(),
-                Business = business,
-                Documents = documents,
-                ComplianceStatus = complianceStatus,
-                ComplianceMessage = complianceMessage
-            };
+                var userResponse = await _httpClient.GetAsync($"/api/user/{userId}");
+                var businessResponse = await _httpClient.GetAsync($"/api/business/user/{userId}");
 
-            return View(viewModel);
+                User? user = null;
+                Business? business = null;
+                List<BusinessDocument> documents = new();
+
+                if (userResponse.IsSuccessStatusCode)
+                {
+                    var userContent = await userResponse.Content.ReadAsStringAsync();
+                    user = JsonSerializer.Deserialize<User>(userContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+
+                if (businessResponse.IsSuccessStatusCode)
+                {
+                    var businessContent = await businessResponse.Content.ReadAsStringAsync();
+                    business = JsonSerializer.Deserialize<Business>(businessContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (business != null)
+                    {
+                        var docsResponse = await _httpClient.GetAsync($"/api/business/{business.BusinessID}/documents");
+                        if (docsResponse.IsSuccessStatusCode)
+                        {
+                            var docsContent = await docsResponse.Content.ReadAsStringAsync();
+                            var docsArray = JsonSerializer.Deserialize<List<BusinessDocument>>(docsContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            documents = docsArray ?? new();
+                        }
+                    }
+                }
+
+                var complianceStatus = business?.ComplianceStatus ?? "Compliant";
+                var complianceMessage = complianceStatus == "Non-Compliant"
+                    ? "Your business is non-compliant. Please update required documents."
+                    : null;
+
+                var viewModel = new ProfileViewModel
+                {
+                    User = user ?? new User(),
+                    Business = business,
+                    Documents = documents,
+                    ComplianceStatus = complianceStatus,
+                    ComplianceMessage = complianceMessage
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error loading profile: " + ex.Message;
+                return View(new ProfileViewModel());
+            }
         }
 
         [HttpPost]
@@ -60,71 +92,81 @@ namespace TradeNetPortal.Controllers
 
             int userId = GetCurrentUserId();
 
-            // Handle profile picture upload
-            if (model.ProfilePicture != null)
+            try
             {
-                var fileName = await SaveFile(model.ProfilePicture, "profiles");
-                var user = await _context.Users.FindAsync(userId);
-                if (user != null)
+                var businessResponse = await _httpClient.GetAsync($"/api/business/user/{userId}");
+                Business? business = null;
+
+                if (businessResponse.IsSuccessStatusCode)
                 {
-                    user.ProfilePicture = fileName;
+                    var content = await businessResponse.Content.ReadAsStringAsync();
+                    business = JsonSerializer.Deserialize<Business>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 }
-            }
-
-            // Handle business profile update
-            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
-            if (business == null && model.BusinessID == 0)
-            {
-                // Create new business
-                business = new Business
+                else if (model.BusinessID == 0)
                 {
-                    UserID = userId,
-                    Name = model.Name,
-                    Type = model.Type,
-                    Address = model.Address,
-                    ContactInfo = model.ContactInfo,
-                    RegistrationNumber = model.RegistrationNumber,
-                    RegistrationDate = DateTime.Now,
-                    Status = "Pending",
-                    ComplianceStatus = "Compliant"
-                };
-                _context.Businesses.Add(business);
-            }
-            else if (business != null)
-            {
-                // Update existing business
-                business.Name = model.Name;
-                business.Type = model.Type;
-                business.Address = model.Address;
-                business.ContactInfo = model.ContactInfo;
-                business.RegistrationNumber = model.RegistrationNumber;
-            }
-
-            await _context.SaveChangesAsync();
-
-            // Handle document uploads
-            if (model.Documents != null && business != null)
-            {
-                foreach (var doc in model.Documents)
-                {
-                    var fileName = await SaveFile(doc, "documents");
-                    var document = new BusinessDocument
+                    business = new Business
                     {
-                        BusinessID = business.BusinessID,
-                        DocType = "IDProof",
-                        FileURI = fileName,
-                        UploadedDate = DateTime.Now,
-                        VerificationStatus = "Pending"
+                        UserID = userId,
+                        Name = model.Name,
+                        Type = model.Type,
+                        Address = model.Address,
+                        ContactInfo = model.ContactInfo,
+                        RegistrationNumber = model.RegistrationNumber,
+                        RegistrationDate = DateTime.Now,
+                        Status = "Pending",
+                        ComplianceStatus = "Compliant"
                     };
-                    _context.BusinessDocuments.Add(document);
+
+                    var json = JsonSerializer.Serialize(business);
+                    var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                    var createResponse = await _httpClient.PostAsync("/api/business", httpContent);
+
+                    if (createResponse.IsSuccessStatusCode)
+                    {
+                        var responseContent = await createResponse.Content.ReadAsStringAsync();
+                        business = JsonSerializer.Deserialize<Business>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    }
                 }
-                await _context.SaveChangesAsync();
+
+                if (business != null)
+                {
+                    business.Name = model.Name;
+                    business.Type = model.Type;
+                    business.Address = model.Address;
+                    business.ContactInfo = model.ContactInfo;
+                    business.RegistrationNumber = model.RegistrationNumber;
+
+                    var json = JsonSerializer.Serialize(business);
+                    var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                    await _httpClient.PutAsync($"/api/business/{business.BusinessID}", httpContent);
+
+                    if (model.Documents != null)
+                    {
+                        foreach (var doc in model.Documents)
+                        {
+                            var fileName = await SaveFile(doc, "documents");
+                            var document = new BusinessDocument
+                            {
+                                BusinessID = business.BusinessID,
+                                DocType = "IDProof",
+                                FileURI = fileName,
+                                UploadedDate = DateTime.Now,
+                                VerificationStatus = "Pending"
+                            };
+                            var docJson = JsonSerializer.Serialize(document);
+                            var docContent = new StringContent(docJson, Encoding.UTF8, "application/json");
+                            await _httpClient.PostAsync("/api/business/documents", docContent);
+                        }
+                    }
+                }
+
+                TempData["SuccessMessage"] = "Profile updated successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error updating profile: " + ex.Message;
             }
 
-            // Log audit
-            await LogAudit(userId, "Update Profile", "Business Profile");
-
-            TempData["SuccessMessage"] = "Profile updated successfully!";
             return RedirectToAction(nameof(Profile));
         }
 
@@ -136,21 +178,41 @@ namespace TradeNetPortal.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            var availableLicenses = await _context.TradeLicenses
-                .Where(l => l.Status == "Available")
-                .ToListAsync();
-
-            var activePrograms = await _context.TradePrograms
-                .Where(p => p.Status == "Active")
-                .ToListAsync();
-
-            var viewModel = new LicenseListViewModel
+            try
             {
-                AvailableLicenses = availableLicenses,
-                ActivePrograms = activePrograms
-            };
+                var licensesResponse = await _httpClient.GetAsync("/api/license");
+                var programsResponse = await _httpClient.GetAsync("/api/program");
 
-            return View(viewModel);
+                var availableLicenses = new List<TradeLicense>();
+                var activePrograms = new List<TradeProgram>();
+
+                if (licensesResponse.IsSuccessStatusCode)
+                {
+                    var content = await licensesResponse.Content.ReadAsStringAsync();
+                    var allLicenses = JsonSerializer.Deserialize<List<TradeLicense>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                    availableLicenses = allLicenses.Where(l => l.Status == "Available").ToList();
+                }
+
+                if (programsResponse.IsSuccessStatusCode)
+                {
+                    var content = await programsResponse.Content.ReadAsStringAsync();
+                    var allPrograms = JsonSerializer.Deserialize<List<TradeProgram>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                    activePrograms = allPrograms.Where(p => p.Status == "Active").ToList();
+                }
+
+                var viewModel = new LicenseListViewModel
+                {
+                    AvailableLicenses = availableLicenses,
+                    ActivePrograms = activePrograms
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error loading licenses: " + ex.Message;
+                return View(new LicenseListViewModel());
+            }
         }
 
         [HttpPost]
@@ -162,63 +224,71 @@ namespace TradeNetPortal.Controllers
             }
 
             int userId = GetCurrentUserId();
-            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
 
-            if (business == null)
+            try
             {
-                return Json(new { success = false, message = "Please complete your business profile first." });
-            }
-
-            // Create license application
-            var license = new TradeLicense
-            {
-                BusinessID = business.BusinessID,
-                Type = model.LicenseType,
-                Title = model.Title,
-                Description = model.Description,
-                Status = "Pending",
-                ApplicationStatus = "PendingDocumentVerification",
-                ApplicationDate = DateTime.Now
-            };
-
-            _context.TradeLicenses.Add(license);
-            await _context.SaveChangesAsync();
-
-            // Handle document uploads
-            if (model.Documents != null)
-            {
-                foreach (var doc in model.Documents)
+                var businessResponse = await _httpClient.GetAsync($"/api/business/user/{userId}");
+                if (!businessResponse.IsSuccessStatusCode)
                 {
-                    var fileName = await SaveFile(doc, "licenses");
-                    var licenseDoc = new LicenseDocument
-                    {
-                        LicenseID = license.LicenseID,
-                        DocType = "Application",
-                        FileURI = fileName,
-                        UploadedDate = DateTime.Now,
-                        VerificationStatus = "Pending"
-                    };
-                    _context.LicenseDocuments.Add(licenseDoc);
+                    return Json(new { success = false, message = "Please complete your business profile first." });
                 }
-                await _context.SaveChangesAsync();
+
+                var businessContent = await businessResponse.Content.ReadAsStringAsync();
+                var business = JsonSerializer.Deserialize<Business>(businessContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (business == null)
+                {
+                    return Json(new { success = false, message = "Please complete your business profile first." });
+                }
+
+                var license = new TradeLicense
+                {
+                    BusinessID = business.BusinessID,
+                    Type = model.LicenseType,
+                    Title = model.Title,
+                    Description = model.Description,
+                    Status = "Pending",
+                    ApplicationStatus = "PendingDocumentVerification",
+                    ApplicationDate = DateTime.Now
+                };
+
+                var json = JsonSerializer.Serialize(license);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var licenseResponse = await _httpClient.PostAsync("/api/license", content);
+
+                if (!licenseResponse.IsSuccessStatusCode)
+                {
+                    return Json(new { success = false, message = "Failed to create license application." });
+                }
+
+                var licenseContent = await licenseResponse.Content.ReadAsStringAsync();
+                var createdLicense = JsonSerializer.Deserialize<TradeLicense>(licenseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (createdLicense != null && model.Documents != null)
+                {
+                    foreach (var doc in model.Documents)
+                    {
+                        var fileName = await SaveFile(doc, "licenses");
+                        var licenseDoc = new LicenseDocument
+                        {
+                            LicenseID = createdLicense.LicenseID,
+                            DocType = "Application",
+                            FileURI = fileName,
+                            UploadedDate = DateTime.Now,
+                            VerificationStatus = "Pending"
+                        };
+                        var docJson = JsonSerializer.Serialize(licenseDoc);
+                        var docContent = new StringContent(docJson, Encoding.UTF8, "application/json");
+                        await _httpClient.PostAsync("/api/license/documents", docContent);
+                    }
+                }
+
+                return Json(new { success = true, message = "License application submitted successfully!" });
             }
-
-            // Create notification
-            var notification = new Notification
+            catch (Exception ex)
             {
-                UserID = userId,
-                EntityID = license.LicenseID,
-                Message = $"Your application for {license.Title} has been submitted successfully.",
-                Category = "License",
-                CreatedDate = DateTime.Now,
-                Status = "Unread"
-            };
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-
-            await LogAudit(userId, "Apply License", $"License: {license.Title}");
-
-            return Json(new { success = true, message = "License application submitted successfully!" });
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
         }
 
         public async Task<IActionResult> Dashboard()
@@ -230,38 +300,70 @@ namespace TradeNetPortal.Controllers
             }
 
             int userId = GetCurrentUserId();
-            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
 
-            if (business == null)
+            try
             {
+                var businessResponse = await _httpClient.GetAsync($"/api/business/user/{userId}");
+
+                if (!businessResponse.IsSuccessStatusCode)
+                {
+                    return View(new DashboardViewModel());
+                }
+
+                var businessContent = await businessResponse.Content.ReadAsStringAsync();
+                var business = JsonSerializer.Deserialize<Business>(businessContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (business == null)
+                {
+                    return View(new DashboardViewModel());
+                }
+
+                var licensesResponse = await _httpClient.GetAsync($"/api/license/business/{business.BusinessID}");
+                var transactionsResponse = await _httpClient.GetAsync($"/api/transaction/business/{business.BusinessID}");
+                var programsResponse = await _httpClient.GetAsync("/api/program");
+
+                var appliedLicenses = new List<TradeLicense>();
+                var transactions = new List<Transaction>();
+                var availableSubsidies = new List<TradeProgram>();
+
+                if (licensesResponse.IsSuccessStatusCode)
+                {
+                    var content = await licensesResponse.Content.ReadAsStringAsync();
+                    appliedLicenses = JsonSerializer.Deserialize<List<TradeLicense>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                }
+
+                if (transactionsResponse.IsSuccessStatusCode)
+                {
+                    var content = await transactionsResponse.Content.ReadAsStringAsync();
+                    transactions = JsonSerializer.Deserialize<List<Transaction>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                    transactions = transactions.OrderByDescending(t => t.Date).ToList();
+                }
+
+                if (programsResponse.IsSuccessStatusCode)
+                {
+                    var content = await programsResponse.Content.ReadAsStringAsync();
+                    var allPrograms = JsonSerializer.Deserialize<List<TradeProgram>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
+                    availableSubsidies = allPrograms.Where(p => p.Status == "Active").ToList();
+                }
+
+                var viewModel = new DashboardViewModel
+                {
+                    AppliedLicenses = appliedLicenses,
+                    Transactions = transactions,
+                    AvailableSubsidies = availableSubsidies,
+                    PendingLicenses = appliedLicenses.Count(l => l.ApplicationStatus?.Contains("Pending") == true),
+                    ApprovedLicenses = appliedLicenses.Count(l => l.ApplicationStatus == "Approved"),
+                    PendingTransactions = transactions.Count(t => t.Status == "Pending"),
+                    TotalTransactionAmount = transactions.Where(t => t.Status == "Completed").Sum(t => t.Amount)
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error loading dashboard: " + ex.Message;
                 return View(new DashboardViewModel());
             }
-
-            var appliedLicenses = await _context.TradeLicenses
-                .Where(l => l.BusinessID == business.BusinessID && l.Status != "Available")
-                .ToListAsync();
-
-            var transactions = await _context.Transactions
-                .Where(t => t.BusinessID == business.BusinessID)
-                .OrderByDescending(t => t.Date)
-                .ToListAsync();
-
-            var availableSubsidies = await _context.TradePrograms
-                .Where(p => p.Status == "Active")
-                .ToListAsync();
-
-            var viewModel = new DashboardViewModel
-            {
-                AppliedLicenses = appliedLicenses,
-                Transactions = transactions,
-                AvailableSubsidies = availableSubsidies,
-                PendingLicenses = appliedLicenses.Count(l => l.ApplicationStatus?.Contains("Pending") == true),
-                ApprovedLicenses = appliedLicenses.Count(l => l.ApplicationStatus == "Approved"),
-                PendingTransactions = transactions.Count(t => t.Status == "Pending"),
-                TotalTransactionAmount = transactions.Where(t => t.Status == "Completed").Sum(t => t.Amount)
-            };
-
-            return View(viewModel);
         }
 
         [HttpPost]
@@ -273,44 +375,50 @@ namespace TradeNetPortal.Controllers
             }
 
             int userId = GetCurrentUserId();
-            var business = await _context.Businesses.FirstOrDefaultAsync(b => b.UserID == userId);
 
-            if (business == null)
+            try
             {
-                return Json(new { success = false, message = "Business profile not found." });
+                var businessResponse = await _httpClient.GetAsync($"/api/business/user/{userId}");
+                if (!businessResponse.IsSuccessStatusCode)
+                {
+                    return Json(new { success = false, message = "Business profile not found." });
+                }
+
+                var businessContent = await businessResponse.Content.ReadAsStringAsync();
+                var business = JsonSerializer.Deserialize<Business>(businessContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (business == null)
+                {
+                    return Json(new { success = false, message = "Business profile not found." });
+                }
+
+                var transaction = new Transaction
+                {
+                    BusinessID = business.BusinessID,
+                    Type = model.Type,
+                    Amount = model.Amount,
+                    Date = DateTime.Now,
+                    Status = "Pending",
+                    Description = model.Description,
+                    InvoiceNumber = model.InvoiceNumber,
+                    Counterparty = model.Counterparty
+                };
+
+                var json = JsonSerializer.Serialize(transaction);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var transactionResponse = await _httpClient.PostAsync("/api/transaction", content);
+
+                if (!transactionResponse.IsSuccessStatusCode)
+                {
+                    return Json(new { success = false, message = "Failed to create transaction." });
+                }
+
+                return Json(new { success = true, message = "Transaction created successfully!" });
             }
-
-            var transaction = new Transaction
+            catch (Exception ex)
             {
-                BusinessID = business.BusinessID,
-                Type = model.Type,
-                Amount = model.Amount,
-                Date = DateTime.Now,
-                Status = "Pending",
-                Description = model.Description,
-                InvoiceNumber = model.InvoiceNumber,
-                Counterparty = model.Counterparty
-            };
-
-            _context.Transactions.Add(transaction);
-            await _context.SaveChangesAsync();
-
-            // Create notification
-            var notification = new Notification
-            {
-                UserID = userId,
-                EntityID = transaction.TransactionID,
-                Message = $"New {model.Type} transaction of ${model.Amount} has been created.",
-                Category = "Transaction",
-                CreatedDate = DateTime.Now,
-                Status = "Unread"
-            };
-            _context.Notifications.Add(notification);
-            await _context.SaveChangesAsync();
-
-            await LogAudit(userId, "Create Transaction", $"Amount: {model.Amount}");
-
-            return Json(new { success = true, message = "Transaction created successfully!" });
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
         }
 
         [HttpGet]
@@ -322,46 +430,76 @@ namespace TradeNetPortal.Controllers
             }
 
             int userId = GetCurrentUserId();
-            var notifications = await _context.Notifications
-                .Where(n => n.UserID == userId)
-                .OrderByDescending(n => n.CreatedDate)
-                .Take(10)
-                .ToListAsync();
+            var notifications = new List<Notification>();
 
-            return Json(notifications);
+            try
+            {
+                return Json(notifications);
+            }
+            catch
+            {
+                return Json(notifications);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> MarkNotificationRead(int notificationId)
         {
-            var notification = await _context.Notifications.FindAsync(notificationId);
-            if (notification != null)
-            {
-                notification.Status = "Read";
-                await _context.SaveChangesAsync();
-            }
             return Json(new { success = true });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetLicenseDetails(int licenseId)
         {
-            var license = await _context.TradeLicenses.FindAsync(licenseId);
-            return Json(license);
+            try
+            {
+                var response = await _httpClient.GetAsync($"/api/license/{licenseId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var license = JsonSerializer.Deserialize<TradeLicense>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return Json(license);
+                }
+            }
+            catch { }
+
+            return Json(null);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTransactionDetails(int transactionId)
         {
-            var transaction = await _context.Transactions.FindAsync(transactionId);
-            return Json(transaction);
+            try
+            {
+                var response = await _httpClient.GetAsync($"/api/transaction/{transactionId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var transaction = JsonSerializer.Deserialize<Transaction>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return Json(transaction);
+                }
+            }
+            catch { }
+
+            return Json(null);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProgramDetails(int programId)
         {
-            var program = await _context.TradePrograms.FindAsync(programId);
-            return Json(program);
+            try
+            {
+                var response = await _httpClient.GetAsync($"/api/program/{programId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var program = JsonSerializer.Deserialize<TradeProgram>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    return Json(program);
+                }
+            }
+            catch { }
+
+            return Json(null);
         }
 
         private int GetCurrentUserId()
@@ -393,20 +531,6 @@ namespace TradeNetPortal.Controllers
             }
 
             return $"/uploads/{folder}/{uniqueFileName}";
-        }
-
-        private async Task LogAudit(int userId, string action, string resource)
-        {
-            var auditLog = new AuditLog
-            {
-                UserID = userId,
-                Action = action,
-                Resource = resource,
-                Timestamp = DateTime.Now,
-                IPAddress = HttpContext.Connection.RemoteIpAddress?.ToString()
-            };
-            _context.AuditLogs.Add(auditLog);
-            await _context.SaveChangesAsync();
         }
     }
 }
